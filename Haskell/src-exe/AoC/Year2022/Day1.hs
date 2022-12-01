@@ -14,4 +14,4 @@ solveProblem2 :: String -> Int
 solveProblem2 = sum . take 3 . reverse . sort . elfSums
 
 day1 :: Problem
-day1 = Problem 1 solveProblem1 solveProblem2
+day1 = Problem 2022 1 solveProblem1 solveProblem2
