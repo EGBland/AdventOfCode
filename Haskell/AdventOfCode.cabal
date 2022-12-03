@@ -62,13 +62,24 @@ executable aoc2022
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules: AoC.Prelude, AoC.Year2015.Days, AoC.Year2015.Day1, AoC.Year2015.Day2
+    other-modules:
+        AoC.Prelude,
+
+        AoC.Year2022.Days,
+        AoC.Year2022.Day1,
+        AoC.Year2022.Day2,
+        AoC.Year2022.Day3,
+        
+        AoC.Year2015.Days,
+        AoC.Year2015.Day1,
+        AoC.Year2015.Day2,
+        AoC.Year2015.Day3
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.16.4.0, split
+    build-depends:    base ^>=4.16.4.0, split, cryptohash-md5, bytestring
 
     -- Directories containing source files.
     hs-source-dirs:   src-exe
