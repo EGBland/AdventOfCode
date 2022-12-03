@@ -1,5 +1,5 @@
 module AoC.Prelude (
-    Problem(..),
+    Problem(..), dummy,
     solveProblem
 ) where
 
@@ -11,3 +11,6 @@ solveProblem :: Problem -> IO (Int,Int)
 solveProblem (Problem year day d1 d2) = do
     input <- readFile $ printf "inputs/%d/day%d.txt" year day
     return (d1 input, d2 input)
+
+dummy :: String -> Int
+dummy _ = 0
