@@ -69,17 +69,22 @@ executable aoc2022
         AoC.Year2022.Day1,
         AoC.Year2022.Day2,
         AoC.Year2022.Day3,
+        AoC.Year2022.Day4,
+
+        AoC.Year2019.Days,
+        AoC.Year2019.Day1,
         
         AoC.Year2015.Days,
         AoC.Year2015.Day1,
         AoC.Year2015.Day2,
-        AoC.Year2015.Day3
+        AoC.Year2015.Day3,
+        AoC.Year2015.Day4
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.16.4.0, split, cryptohash-md5, bytestring
+    build-depends:    base ^>=4.16.4.0, split, cryptohash-md5, bytestring, timeit, deepseq
 
     -- Directories containing source files.
     hs-source-dirs:   src-exe
