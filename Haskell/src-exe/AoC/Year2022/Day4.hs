@@ -1,15 +1,15 @@
 module AoC.Year2022.Day4 ( day4 ) where
 
-import AoC.Prelude ( Problem(..), dummy )
+import AoC.Prelude ( Problem(..) )
 
 day4 :: Problem
 day4 = Problem 2022 4 solveProblem1 solveProblem2
 
-solveProblem1 :: String -> Int
-solveProblem1 = length . filter (uncurry completelyRedundant) . map readInterval . lines
+solveProblem1 :: String -> String
+solveProblem1 = show . length . filter (uncurry completelyRedundant) . map readInterval . lines
 
-solveProblem2 :: String -> Int
-solveProblem2 = length . filter (uncurry partlyRedundant) . map readInterval . lines
+solveProblem2 :: String -> String
+solveProblem2 = show . length . filter (uncurry partlyRedundant) . map readInterval . lines
 
 readInterval :: String -> ((Int,Int),(Int,Int))
 readInterval str =
