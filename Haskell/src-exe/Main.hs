@@ -11,6 +11,7 @@ printProblem p@(Problem year day _ _) = do
 
 main :: IO ()
 main = mapM_ printProblem days
+--main = readFile "inputs/2022/day5.txt" >>= print . map length . takeWhile (not . null) . lines
 --main = readInterval "1-2,3-4"
 --main = print $ sum . tail . takeWhile (>=0) $ iterate (\x -> x`div`3-2) $ (1969::Int)
 --main = readFile "inputs/2022/day3.txt" >>= print . map (uncurry firstInCommon . halve) . lines
