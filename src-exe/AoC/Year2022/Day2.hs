@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module AoC.Year2022.Day2 (day2) where
 
 import AoC.Prelude ( Problem(..) )
@@ -11,11 +12,11 @@ data Result = Win | Draw | Loss
 day2 :: Problem
 day2 = Problem 2022 2 solveProblem1 solveProblem2
 
-solveProblem1 :: String -> Int
-solveProblem1 = sum . map (score . getMove) . lines
+solveProblem1 :: String -> String
+solveProblem1 = show . sum . map (score . getMove) . lines
 
-solveProblem2 :: String -> Int
-solveProblem2 = sum . map (score . (\(m,r) -> (m, infer (m,r))) . getResult) . lines
+solveProblem2 :: String -> String
+solveProblem2 = show . sum . map (score . (\(m,r) -> (m, infer (m,r))) . getResult) . lines
 
 readMove :: Char -> Move
 readMove c = case c of
