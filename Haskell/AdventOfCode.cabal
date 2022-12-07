@@ -70,7 +70,8 @@ executable aoc2022
         AoC.Year2022.Day2,
         AoC.Year2022.Day3,
         AoC.Year2022.Day4,
-        AoC.Year2022.Day5
+        AoC.Year2022.Day5,
+        AoC.Year2022.Day6
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
