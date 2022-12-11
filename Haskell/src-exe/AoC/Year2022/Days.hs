@@ -8,6 +8,7 @@ import AoC.Year2022.Day4 ( day4 )
 import AoC.Year2022.Day5 ( day5 )
 import AoC.Year2022.Day6 ( day6 )
 import AoC.Year2022.Day7 ( day7 )
+import AoC.Year2022.Day8 ( day8 )
 
 days :: [Problem]
-days = [day1,day2,day3,day4,day5,day6,day7]
+days = [day1,day2,day3,day4,day5,day6,day7,day8]
