@@ -1,8 +1,9 @@
-module AoC.Structures.Tree ( Tree(..), resolve, resolveBy ) where
+module AoC.Structures.Tree ( Tree(..), resolve, resolveBy, addSibling, addChild ) where
 
 import Control.Applicative ( liftA2 )
 
 data Tree a = Tip | Branch (Tree a) a (Tree a)
+    deriving (Show)
 
 instance Functor Tree where
     fmap :: (a -> b) -> Tree a -> Tree b
@@ -32,11 +33,21 @@ instance Traversable Tree where
     traverse f (Branch l x r) = Branch <$> traverse f l <*> f x <*> traverse f r
 
 
-resolve :: (Eq a) => [a] -> Tree a -> Maybe a
+resolve :: (Eq a) => [a] -> Tree a -> Maybe (Tree a)
 resolve = resolveBy (==)
 
-resolveBy :: (a -> b -> Bool) -> [a] -> Tree b -> Maybe b
+resolveBy :: (a -> b -> Bool) -> [a] -> Tree b -> Maybe (Tree b)
 resolveBy _ _ Tip = Nothing
 resolveBy _ [] _ = Nothing
-resolveBy f [x] (Branch _ y r) = if f x y then Just y else resolveBy f [x] r
+resolveBy f [x] b@(Branch l y r) = if f x y then Just b else resolveBy f [x] r
 resolveBy f (x:xs) (Branch l y r) = if f x y then resolveBy f xs l else resolveBy f (x:xs) r
+
+addSibling :: a -> Tree a -> Tree a
+addSibling _ Tip = Tip
+addSibling x (Branch l y Tip) = Branch l y (pure x)
+addSibling x (Branch l y r) = Branch l y (addSibling x r)
+
+addChild :: a -> Tree a -> Tree a
+addChild _ Tip = Tip
+addChild x (Branch Tip y r) = Branch (pure x) y r
+addChild x (Branch l y r) = Branch (addSibling x l) y r
