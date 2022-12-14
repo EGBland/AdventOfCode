@@ -6,6 +6,7 @@ import Text.Printf ( printf )
 
 import AoC.Structures.Digraph ( Digraph, empty, addArc, adjacencyMatrix )
 import Data.Matrix ( prettyMatrix )
+import AoC.Year2022.Day7 ( scratch )
 
 printProblem :: Problem -> IO ()
 printProblem p@(Problem year day _ _) = do
