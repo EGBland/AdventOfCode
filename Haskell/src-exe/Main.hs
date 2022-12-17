@@ -5,6 +5,7 @@ import AoC.Year2022.Days ( days )
 import Text.Printf ( printf )
 
 import AoC.Structures.Digraph ( Digraph, empty, addArc, adjacencyMatrix )
+import AoC.Structures.Tree ( Tree(..), addSibling, addChild, addSiblingTo, addChildTo )
 import Data.Matrix ( prettyMatrix )
 import AoC.Year2022.Day7 ( scratch )
 
@@ -15,5 +16,7 @@ printProblem p@(Problem year day _ _) = do
 
 main :: IO ()
 main = mapM_ printProblem days >> do
-    let g = addArc empty 'a' 'b' 1
-    putStrLn . prettyMatrix . adjacencyMatrix $ g
+    let root = addSibling "sib2" . addSibling "sib1" . pure $ "root" :: Tree String
+    let root2 = addChildTo (==) ["sib1"] "child1" root
+
+    print root2
