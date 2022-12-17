@@ -2,6 +2,7 @@ module AoC.Year2022.Day7 ( day7, scratch ) where
 
 import AoC.Prelude ( Problem(..), dummy )
 import Data.Char ( isDigit )
+import Data.List ( nub )
 
 data Line = CD String | LS | DirInfo String | FileInfo String Int | Invalid
     deriving (Eq,Show)

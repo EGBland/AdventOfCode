@@ -1,4 +1,4 @@
-module AoC.Structures.Tree ( Tree(..), resolve, resolveBy, addSibling, addChild ) where
+module AoC.Structures.Tree ( Tree(..), resolve, resolveBy, addSibling, addChild, addSiblingTo, addChildTo ) where
 
 import Control.Applicative ( liftA2 )
 
@@ -39,11 +39,11 @@ resolve = resolveBy (==)
 resolveBy :: (a -> b -> Bool) -> [a] -> Tree b -> Maybe (Tree b)
 resolveBy _ _ Tip = Nothing
 resolveBy _ [] _ = Nothing
-resolveBy f [x] b@(Branch l y r) = if f x y then Just b else resolveBy f [x] r
+resolveBy f [x] b@(Branch _ y r) = if f x y then Just b else resolveBy f [x] r
 resolveBy f (x:xs) (Branch l y r) = if f x y then resolveBy f xs l else resolveBy f (x:xs) r
 
 addSibling :: a -> Tree a -> Tree a
-addSibling _ Tip = Tip
+addSibling x Tip = pure x
 addSibling x (Branch l y Tip) = Branch l y (pure x)
 addSibling x (Branch l y r) = Branch l y (addSibling x r)
 
@@ -51,3 +51,54 @@ addChild :: a -> Tree a -> Tree a
 addChild _ Tip = Tip
 addChild x (Branch Tip y r) = Branch (pure x) y r
 addChild x (Branch l y r) = Branch (addSibling x l) y r
+
+-- there has to be a way to use resolveBy here, probably
+addSiblingTo :: (a -> b -> Bool) -> [a] -> b -> Tree b -> Maybe (Tree b)
+addSiblingTo _ _ _ Tip = Nothing
+addSiblingTo _ [] _ _ = Nothing
+addSiblingTo f [p] x b@(Branch l y r) =
+    if
+        f p y
+    then
+        Just $ addSibling x b
+    else
+        do
+            r2 <- addSiblingTo f [p] x r
+            return $ Branch l y r2
+
+addSiblingTo f (p:ps) x (Branch l y r) =
+    if
+        f p y
+    then
+        do
+            l2 <- addSiblingTo f ps x l
+            return $ Branch l2 y r
+    else
+        do
+            r2 <- addSiblingTo f ps x r
+            return $ Branch l y r2
+
+addChildTo :: (a -> b -> Bool) -> [a] -> b -> Tree b -> Maybe (Tree b)
+addChildTo _ _ _ Tip = Nothing
+addChildTo _ [] _ _ = Nothing
+addChildTo f [p] x b@(Branch l y r) =
+    if
+        f p y
+    then
+        Just $ addChild x b
+    else
+        do
+            r2 <- addSiblingTo f [p] x r
+            return $ Branch l y r2
+
+addChildTo f (p:ps) x (Branch l y r) =
+    if
+        f p y
+    then
+        do
+            l2 <- addChildTo f ps x l
+            return $ Branch l2 y r
+    else
+        do
+            r2 <- addChildTo f (p:ps) x r
+            return $ Branch l y r2
