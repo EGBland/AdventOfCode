@@ -1,4 +1,4 @@
-module AoC.Structures.Tree ( Tree(..), resolve, resolveBy, addSibling, addChild, addSiblingTo, addChildTo ) where
+module AoC.Structures.Tree ( Tree(..), left, right, resolve, resolveBy, addSibling, addChild, addSiblingTo, addChildTo ) where
 
 import Control.Applicative ( liftA2 )
 
@@ -32,6 +32,12 @@ instance Traversable Tree where
     traverse _ Tip = pure Tip
     traverse f (Branch l x r) = Branch <$> traverse f l <*> f x <*> traverse f r
 
+
+left :: Tree a -> Tree a
+left (Branch l x r) = l
+
+right :: Tree a -> Tree a
+right (Branch l x r) = r
 
 resolve :: (Eq a) => [a] -> Tree a -> Maybe (Tree a)
 resolve = resolveBy (==)
@@ -88,7 +94,7 @@ addChildTo f [p] x b@(Branch l y r) =
         Just $ addChild x b
     else
         do
-            r2 <- addSiblingTo f [p] x r
+            r2 <- addChildTo f [p] x r
             return $ Branch l y r2
 
 addChildTo f (p:ps) x (Branch l y r) =
